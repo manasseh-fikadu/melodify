@@ -1,19 +1,16 @@
-import { Song, Statistics } from "./types"; // Import the types for songs and statistics
+import axios from "axios";
 
-const BASE_URL = "https://melodify-21ay.onrender.com/api";
+axios.defaults.baseURL = "http://localhost:3000/api/songs";
 
-export const fetchSongs = async (): Promise<Song[]> => {
-  const response = await fetch(`${BASE_URL}/songs`);
-  if (!response.ok) {
-    throw new Error("Failed to fetch songs");
-  }
-  return response.json();
-};
+export const getSongsAPI = async () => axios.get("/");
 
-export const fetchStatistics = async (): Promise<Statistics> => {
-  const response = await fetch(`${BASE_URL}/statistics`);
-  if (!response.ok) {
-    throw new Error("Failed to fetch statistics");
-  }
-  return response.json();
-};
+export const getSongByIdAPI = async (id: string) => axios.get(`/${id}`);
+
+export const createSongAPI = async (song: any) => axios.post(`/`, song);
+
+export const updateSongAPI = async (id: string, updatedSong: any) =>
+  axios.put(`/${id}`, updatedSong);
+
+export const deleteSongByIdAPI = async (id: string) => axios.delete(`/${id}`);
+
+export const getStatisticsAPI = async () => axios.get("/statistics");
